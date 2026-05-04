@@ -1,122 +1,1075 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sugan | Entry-Level Data Analyst — Building Skills, Solving Problems</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <title>Sugan | Data Analyst — SQL, Python, Power BI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0B0F1A;
+      --bg-card: #111827;
+      --bg-card-hover: #1a2236;
+      --accent-primary: #6366F1;
+      --accent-secondary: #818CF8;
+      --accent-muted: rgba(99, 102, 241, 0.08);
+      --text-primary: #F3F4F6;
+      --text-secondary: #9CA3AF;
+      --text-muted: #6B7280;
+      --border-subtle: rgba(255, 255, 255, 0.05);
+      --border-accent: rgba(99, 102, 241, 0.25);
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+      --shadow-card-hover: 0 8px 32px rgba(99, 102, 241, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-secondary);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Subtle gradient background */
+    .gradient-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 85% 30%, rgba(129, 140, 248, 0.04) 0%, transparent 50%);
+      filter: blur(80px);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(11, 15, 26, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      z-index: 100;
+      padding: 16px 0;
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--accent-primary);
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .btn-nav {
+      background: var(--accent-primary);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-nav:hover {
+      background: var(--accent-secondary);
+      transform: translateY(-2px);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    /* Sections */
+    section {
+      padding: 100px 0;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .section-title {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .section-subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 640px;
+      line-height: 1.7;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .center .section-subtitle {
+      margin: 0 auto;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 8px 20px;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid var(--border-accent);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent-primary);
+      letter-spacing: 1px;
+      margin-bottom: 32px;
+    }
+
+    .hero-title {
+      font-size: 52px;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.15;
+      margin-bottom: 24px;
+      letter-spacing: -1.5px;
+    }
+
+    .hero-title .accent {
+      color: var(--accent-primary);
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 680px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+    }
+
+    .btn-primary {
+      background: var(--accent-primary);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.25);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      padding: 14px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-accent);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .stat-number {
+      font-size: 40px;
+      font-weight: 800;
+      color: var(--accent-primary);
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .stat-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+      margin-top: 48px;
+    }
+
+    .about-image {
+      position: relative;
+    }
+
+    .about-image img {
+      width: 100%;
+      border-radius: 20px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .about-text {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+
+    .about-text p {
+      margin-bottom: 20px;
+    }
+
+    .tools-row {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tool-tag {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid var(--border-accent);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent-primary);
+    }
+
+    .strengths-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .strength-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 24px;
+      transition: all 0.3s ease;
+    }
+
+    .strength-card:hover {
+      border-color: var(--border-accent);
+    }
+
+    .strength-icon {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .strength-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .strength-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .skill-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s ease;
+    }
+
+    .skill-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .skill-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .skill-icon {
+      font-size: 28px;
+    }
+
+    .skill-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .skill-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-tag {
+      padding: 4px 12px;
+      background: rgba(99, 102, 241, 0.08);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent-secondary);
+    }
+
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      gap: 40px;
+      margin-top: 48px;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover {
+      border-color: var(--border-accent);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .project-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .project-layout.reverse {
+      direction: rtl;
+    }
+
+    .project-layout.reverse > * {
+      direction: ltr;
+    }
+
+    .project-visual {
+      position: relative;
+      min-height: 400px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(99, 102, 241, 0.02));
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 32px;
+      overflow: hidden;
+    }
+
+    .project-image-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .project-image-wrap img {
+      max-width: 100%;
+      max-height: 320px;
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border-subtle);
+      object-fit: contain;
+    }
+
+    .project-image-wrap.multi {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .project-image-wrap.multi img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .project-image-wrap.multi img:first-child {
+      grid-column: 1 / -1;
+      height: 180px;
+    }
+
+    .project-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 6px 14px;
+      background: rgba(99, 102, 241, 0.2);
+      border: 1px solid var(--border-accent);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-primary);
+    }
+
+    .project-tech-stack {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .project-tech {
+      padding: 6px 12px;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .project-info {
+      padding: 40px;
+    }
+
+    .project-num {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-primary);
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .project-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+    }
+
+    .project-section {
+      margin-bottom: 20px;
+    }
+
+    .project-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent-primary);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .project-section-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .project-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .project-list li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      padding-left: 20px;
+      position: relative;
+      margin-bottom: 6px;
+    }
+
+    .project-list li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--accent-primary);
+      font-weight: 700;
+    }
+
+    .project-impact {
+      background: rgba(99, 102, 241, 0.05);
+      border-left: 3px solid var(--accent-primary);
+      padding: 16px 20px;
+      border-radius: 0 12px 12px 0;
+      margin: 20px 0;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .project-link {
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .project-link.primary {
+      background: var(--accent-primary);
+      color: white;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+    }
+
+    .project-link.primary:hover {
+      background: var(--accent-secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+    }
+
+    .project-link.secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .project-link.secondary:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+      background: rgba(99, 102, 241, 0.05);
+    }
+
+    /* Learning Path */
+    .timeline {
+      margin-top: 48px;
+      position: relative;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border-subtle);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 64px;
+      margin-bottom: 32px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 16px;
+      top: 4px;
+      width: 16px;
+      height: 16px;
+      background: var(--accent-primary);
+      border-radius: 50%;
+      border: 3px solid var(--bg-primary);
+    }
+
+    .timeline-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .timeline-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .timeline-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* Certification */
+    .cert-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 48px;
+      max-width: 800px;
+      margin: 48px auto 0;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .cert-card:hover {
+      border-color: var(--border-accent);
+    }
+
+    .cert-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .cert-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .cert-issuer {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent-primary);
+      margin-bottom: 16px;
+    }
+
+    .cert-desc {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .cert-areas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      text-align: left;
+      margin-bottom: 24px;
+    }
+
+    .cert-area {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .cert-area::before {
+      content: "✓";
+      color: var(--accent-primary);
+      font-weight: 700;
+    }
+
+    /* Contact */
+    .contact-content {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .contact-title {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .contact-text {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    .contact-availability {
+      display: inline-block;
+      padding: 8px 20px;
+      background: rgba(34, 211, 238, 0.1);
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #22D3EE;
+      margin: 16px 0 40px;
+    }
+
+    .contact-links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .contact-link-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 28px;
+      text-decoration: none;
+      color: var(--text-secondary);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .contact-link-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .contact-link-icon {
+      font-size: 28px;
+    }
+
+    .contact-link-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .contact-link-value {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .contact-cta {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    footer p {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .hero-title {
+        font-size: 32px;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      .about-grid,
+      .project-layout,
+      .project-layout.reverse {
+        grid-template-columns: 1fr;
+        direction: ltr;
+      }
+
+      .project-layout.reverse > * {
+        direction: ltr;
+      }
+
+      .project-visual {
+        min-height: 200px;
+        padding: 24px;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .project-info {
+        padding: 24px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--bg-card);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-primary);
+    }
+  </style>
+<base target="_blank">
 </head>
 <body>
+  <div class="gradient-bg"></div>
 
   <!-- Navigation -->
-  <nav class="nav">
-    <div class="nav-brand">SUGAN.</div>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#learning">Learning Path</a>
-      <a href="#contact">Contact</a>
+  <nav>
+    <div class="container">
+      <a href="#" class="logo">SUGAN.S</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#learning">Learning Path</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="resume.pdf" class="btn-nav">Resume ↓</a>
+      <button class="mobile-menu-btn">☰</button>
     </div>
-    <a href="resume.pdf" class="btn-nav">Resume ↓</a>
   </nav>
 
-  <!-- HERO SECTION -->
-  <section class="hero">
-    <div class="hero-bg">
-      <div class="grid-overlay"></div>
-      <div class="floating-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-      </div>
-    </div>
-    
-    <div class="hero-content" data-aos="fade-up">
-      <div class="hero-tag">Entry-Level Data Analyst</div>
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-badge">SQL • Python • Power BI • Excel</div>
       <h1 class="hero-title">
-        <span class="line">Learning by Doing.</span>
-        <span class="line highlight">Building by Solving.</span>
-        <span class="line">Ready to Contribute.</span>
+        Data Analyst — SQL · Python · Power BI<br>
+        <span class="accent">Building Dashboards & Pipelines That Drive Decisions</span>
       </h1>
       <p class="hero-subtitle">
-        I'm an aspiring data analyst who believes the best way to learn is by building real projects. 
-        I've completed 4 end-to-end projects covering SQL, Python, Power BI, and data pipelines — 
-        and I'm hungry for my first professional role.
+        Built 4 end-to-end projects using SQL, Python, and Power BI — from data cleaning to dashboard delivery.
+        Developed automated pipelines and analytical solutions to extract insights and support data-driven strategy.
+        Seeking a data analyst role to solve real business problems.
       </p>
       <div class="hero-cta">
-        <a href="#projects" class="btn-primary">See My Projects</a>
-        <a href="https://github.com/sugansvs" class="btn-secondary" target="_blank">GitHub →</a>
+        <a href="#projects" class="btn-primary">View My Projects →</a>
+        <a href="https://github.com/sugansvs" class="btn-secondary" target="_blank">GitHub ↗</a>
       </div>
-      <div class="hero-stats">
-        <div class="stat">
-          <span class="stat-num" data-target="4">0</span>
-          <span class="stat-label">Projects Completed</span>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">4+</div>
+          <div class="stat-label">End-to-End Data Projects</div>
+          <div class="stat-desc">Dashboards · Pipelines · Analysis</div>
         </div>
-        <div class="stat">
-          <span class="stat-num" data-target="3">0</span>
-          <span class="stat-label">Core Tools</span>
+        <div class="stat-card">
+          <div class="stat-number">4+</div>
+          <div class="stat-label">Core Tools</div>
+          <div class="stat-desc">SQL · Python · Power BI · Excel</div>
         </div>
-        <div class="stat">
-          <span class="stat-num" data-target="100">0</span>
-          <span class="stat-label">% Commitment</span>
+        <div class="stat-card">
+          <div class="stat-number">∞</div>
+          <div class="stat-label">Data Processed</div>
+          <div class="stat-desc">Multiple sources & formats</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ABOUT SECTION -->
-  <section id="about" class="about" data-aos="fade-up">
+  <!-- About Section -->
+  <section id="about">
     <div class="container">
-      <div class="section-header">
-        <span class="section-tag">01 — About Me</span>
-        <h2 class="section-title">From Learner to<br>Problem-Solver</h2>
-      </div>
-      
+      <span class="section-label">01 — About</span>
       <div class="about-grid">
         <div class="about-image">
-          <img src="images/profile.jpg" alt="Sugan - Entry-Level Data Analyst">
-          <div class="image-frame"></div>
+          <img src="images/sugan.png" alt="Sugan - Data Analyst">
         </div>
-        <div class="about-content">
-          <p class="about-lead">
-            I don't have 5 years of experience — but I have <strong>4 completed projects</strong> that prove 
-            I can clean messy data, write efficient SQL, build interactive dashboards, and automate workflows.
-          </p>
-          <p>
-            I started my data journey by identifying a gap: companies need analysts who can do the work, 
-            not just list tools on a resume. So I built projects that mirror real business problems — 
-            from data extraction to insight delivery [^18^].
-          </p>
-          <p>
-            My approach is simple: <strong>ask a clear business question, find the right data, clean it thoroughly, 
-            analyze it honestly, and communicate findings clearly.</strong> That's the foundation every great analyst needs.
-          </p>
-          <div class="about-highlights">
-            <div class="highlight-item">
-              <div class="highlight-icon">🧹</div>
-              <div>
-                <h4>Data Cleaning First</h4>
-                <p>80% of real work is prep — I practice it deliberately</p>
-              </div>
+        <div>
+          <h2 class="section-title">Turning Raw Data into Business Insights</h2>
+          <div class="about-text">
+            <p>
+              I build end-to-end analytics solutions that solve real business problems.
+              My projects cover the full workflow — data extraction, cleaning, modeling,
+              and dashboard delivery — using SQL, Python, Power BI, and Excel.
+            </p>
+            <p>
+              I focus on practical outcomes: defining clear business questions, working
+              with real datasets, and delivering insights that accelerate decision-making.
+              My work emphasizes accuracy, clarity, and measurable impact.
+            </p>
+            <div class="tools-row">
+              <span class="tool-tag">SQL</span>
+              <span class="tool-tag">Python</span>
+              <span class="tool-tag">Power BI</span>
+              <span class="tool-tag">Excel</span>
             </div>
-            <div class="highlight-item">
-              <div class="highlight-icon">📊</div>
-              <div>
-                <h4>Clear Visualizations</h4>
-                <p>Dashboards that tell stories, not just show numbers</p>
-              </div>
+          </div>
+
+          <div class="strengths-grid" style="margin-top: 32px;">
+            <div class="strength-card">
+              <div class="strength-icon">🧹</div>
+              <div class="strength-title">Data Cleaning</div>
+              <div class="strength-desc">Transforming messy raw data into reliable, analysis-ready datasets</div>
             </div>
-            <div class="highlight-item">
-              <div class="highlight-icon">💡</div>
-              <div>
-                <h4>Business Thinking</h4>
-                <p>Every analysis starts with "so what?"</p>
-              </div>
+            <div class="strength-card">
+              <div class="strength-icon">📊</div>
+              <div class="strength-title">Data Visualization</div>
+              <div class="strength-desc">Designing dashboards that surface insights and reduce decision time</div>
+            </div>
+            <div class="strength-card">
+              <div class="strength-icon">💡</div>
+              <div class="strength-title">Business Thinking</div>
+              <div class="strength-desc">Connecting data patterns to actionable business outcomes</div>
             </div>
           </div>
         </div>
@@ -124,404 +1077,491 @@
     </div>
   </section>
 
-  <!-- SKILLS SECTION -->
-  <section id="skills" class="skills" data-aos="fade-up">
+  <!-- Skills Section -->
+  <section id="skills">
     <div class="container">
-      <div class="section-header center">
-        <span class="section-tag">02 — My Toolkit</span>
-        <h2 class="section-title">Tools I'm Building<br>Proficiency In</h2>
+      <div class="center">
+        <span class="section-label">02 — My Toolkit</span>
+        <h2 class="section-title">Core Tools & Technical Skills</h2>
+        <p class="section-subtitle">Technologies I use to extract, analyze, and visualize data</p>
       </div>
-      
-      <div class="skills-bento">
-        <div class="bento-card large" data-aos="fade-right">
-          <div class="bento-icon">🐍</div>
-          <h3>Python</h3>
-          <p>Pandas for data manipulation, NumPy for calculations, Matplotlib/Seaborn for visualization, Streamlit for web apps. I focus on clean, readable code with clear comments.</p>
-          <div class="skill-bar"><div class="skill-fill" style="width: 75%"></div></div>
-          <span class="skill-level">Intermediate</span>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-header">
+            <span class="skill-icon">🐍</span>
+            <span class="skill-name">Python</span>
+          </div>
+          <p class="skill-desc">Pandas, NumPy, Matplotlib, Seaborn, Streamlit — Data cleaning, statistical analysis, visualization, small app deployment</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Pandas</span>
+            <span class="skill-tag">NumPy</span>
+            <span class="skill-tag">Matplotlib</span>
+            <span class="skill-tag">Seaborn</span>
+            <span class="skill-tag">Streamlit</span>
+          </div>
         </div>
-        
-        <div class="bento-card" data-aos="fade-up">
-          <div class="bento-icon">🗄️</div>
-          <h3>SQL</h3>
-          <p>MySQL & PostgreSQL. SELECT, JOINs, GROUP BY, CTEs, Window Functions, subqueries. I write queries that are efficient and easy to read.</p>
-          <div class="skill-bar"><div class="skill-fill" style="width: 80%"></div></div>
-          <span class="skill-level">Intermediate</span>
+
+        <div class="skill-card">
+          <div class="skill-header">
+            <span class="skill-icon">🗄️</span>
+            <span class="skill-name">SQL</span>
+          </div>
+          <p class="skill-desc">MySQL, PostgreSQL — Complex queries, JOINs, CTEs, window functions, query optimization</p>
+          <div class="skill-tags">
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">CTEs</span>
+            <span class="skill-tag">Window Functions</span>
+          </div>
         </div>
-        
-        <div class="bento-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="bento-icon">📈</div>
-          <h3>Power BI</h3>
-          <p>DAX measures, data modeling, interactive dashboards, KPI cards, slicers, and drill-through. I design for the end user, not myself.</p>
-          <div class="skill-bar"><div class="skill-fill" style="width: 70%"></div></div>
-          <span class="skill-level">Intermediate</span>
+
+        <div class="skill-card">
+          <div class="skill-header">
+            <span class="skill-icon">📈</span>
+            <span class="skill-name">Power BI</span>
+          </div>
+          <p class="skill-desc">DAX, data modeling, KPI tracking, interactive dashboards, drill-through — Executive-ready visualizations</p>
+          <div class="skill-tags">
+            <span class="skill-tag">DAX</span>
+            <span class="skill-tag">Data Modeling</span>
+            <span class="skill-tag">KPIs</span>
+            <span class="skill-tag">Drill-through</span>
+          </div>
         </div>
-        
-        <div class="bento-card" data-aos="fade-left">
-          <div class="bento-icon">☁️</div>
-          <h3>APIs & ETL Basics</h3>
-          <p>REST API data extraction, JSON parsing, basic ETL pipeline design, data transformation with Python.</p>
-          <div class="skill-bar"><div class="skill-fill" style="width: 65%"></div></div>
-          <span class="skill-level">Beginner–Intermediate</span>
+
+        <div class="skill-card">
+          <div class="skill-header">
+            <span class="skill-icon">📊</span>
+            <span class="skill-name">Excel</span>
+          </div>
+          <p class="skill-desc">Power Query, Pivot Tables, XLOOKUP, data cleaning, automated dashboards</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Power Query</span>
+            <span class="skill-tag">Pivot Tables</span>
+            <span class="skill-tag">XLOOKUP</span>
+          </div>
         </div>
-        
-        <div class="bento-card wide" data-aos="fade-up">
-          <div class="bento-icon">📋</div>
-          <h3>Core Analyst Skills</h3>
-          <p>Exploratory Data Analysis (EDA), data cleaning & validation, business question formulation, insight communication, documentation. These are the skills that separate analysts from tool operators [^18^].</p>
-          <div class="skill-bar"><div class="skill-fill" style="width: 78%"></div></div>
-          <span class="skill-level">Growing Fast</span>
+
+        <div class="skill-card">
+          <div class="skill-header">
+            <span class="skill-icon">☁️</span>
+            <span class="skill-name">APIs & ETL</span>
+          </div>
+          <p class="skill-desc">REST APIs, JSON extraction, Python-based data pipeline automation</p>
+          <div class="skill-tags">
+            <span class="skill-tag">REST APIs</span>
+            <span class="skill-tag">JSON</span>
+            <span class="skill-tag">ETL Pipelines</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-header">
+            <span class="skill-icon">📋</span>
+            <span class="skill-name">Core Analyst Skills</span>
+          </div>
+          <p class="skill-desc">EDA, data validation, business problem framing, stakeholder communication — Focus: Actionable outcomes</p>
+          <div class="skill-tags">
+            <span class="skill-tag">EDA</span>
+            <span class="skill-tag">Data Validation</span>
+            <span class="skill-tag">Business Framing</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PROJECTS SECTION -->
-  <section id="projects" class="projects">
+  <!-- Projects Section -->
+  <section id="projects">
     <div class="container">
-      <div class="section-header">
-        <span class="section-tag">03 — Portfolio Projects</span>
-        <h2 class="section-title">4 Projects That Prove<br>I Can Do the Work</h2>
-      </div>
-      <p class="section-subtitle">
-        Each project follows the full analyst workflow: business question → data collection → cleaning → analysis → visualization → recommendation [^18^].
-      </p>
+      <span class="section-label">03 — Projects</span>
+      <h2 class="section-title">Real-World Projects Demonstrating<br>End-to-End Data Analysis</h2>
+      <p class="section-subtitle">Each project solves a specific business problem with measurable outcomes</p>
 
-      <!-- Project 1: YouTube -->
-      <div class="project-card" data-aos="fade-up">
-        <div class="project-visual">
-          <div class="project-image-wrapper">
-            <img src="images/youtube.png" alt="YouTube Data Warehouse">
-            <div class="project-overlay">
-              <span class="project-badge">ETL Pipeline</span>
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <div class="project-card">
+          <div class="project-layout">
+            <div class="project-visual">
+              <div class="project-image-wrap">
+                <img src="images/youtube.png" alt="YouTube Data Warehouse Dashboard">
+              </div>
+              <span class="project-badge">Automated ETL Pipeline for YouTube Analytics</span>
+              <div class="project-tech-stack">
+                <span class="project-tech">YouTube API</span>
+                <span class="project-tech">Python (ETL)</span>
+                <span class="project-tech">MongoDB (Raw)</span>
+                <span class="project-tech">SQL (Structured)</span>
+                <span class="project-tech">Streamlit</span>
+              </div>
+            </div>
+            <div class="project-info">
+              <span class="project-num">01</span>
+              <h3 class="project-title">YouTube Data Warehouse</h3>
+
+              <div class="project-section">
+                <div class="project-section-title">❓ Business Problem</div>
+                <p class="project-section-text">Content creators lack a centralized system to track and analyze performance across multiple data sources.</p>
+              </div>
+
+              <div class="project-section">
+                <div class="project-section-title">🔧 Solution</div>
+                <ul class="project-list">
+                  <li>Extracted data using YouTube Data API with Python</li>
+                  <li>Designed normalized SQL database schema</li>
+                  <li>Built automated ETL pipeline for scheduled data updates</li>
+                  <li>Developed Power BI dashboard with KPI tracking and trend analysis</li>
+                </ul>
+              </div>
+
+              <div class="project-impact">
+                <div class="project-section-title">📊 Impact</div>
+                <ul class="project-list">
+                  <li>Centralized fragmented data into a single source of truth</li>
+                  <li>Enabled consistent performance tracking across videos and time</li>
+                  <li>Reduced manual data collection effort through automation</li>
+                </ul>
+              </div>
+
+              <div class="project-links">
+                <a href="https://github.com/sugansvs/youtube-data-warehouse-dashboard" class="project-link primary" target="_blank">View Code →</a>
+                <a href="#" class="project-link secondary">Live Demo ↗</a>
+              </div>
             </div>
           </div>
-          <div class="project-tech-stack">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">YouTube API</span>
-            <span class="tech-tag">SQL</span>
-            <span class="tech-tag">Power BI</span>
-          </div>
         </div>
-        <div class="project-info">
-          <span class="project-num">01</span>
-          <h3>YouTube Data Warehouse</h3>
-          
-          <div class="question-box">
-            <h4>❓ Business Question</h4>
-            <p>How can content creators track and optimize their channel performance when data is scattered across multiple platforms?</p>
-          </div>
-          
-          <div class="what-i-did">
-            <h4>🔧 What I Did</h4>
-            <ul>
-              <li>Extracted data using YouTube Data API with Python</li>
-              <li>Designed a normalized SQL database schema for storage</li>
-              <li>Built ETL pipeline to automate data refresh</li>
-              <li>Created Power BI dashboard with KPIs and trend analysis</li>
-            </ul>
-          </div>
 
-          <div class="what-i-learned">
-            <h4>🎓 What I Learned</h4>
-            <p>API rate limits, database normalization, and the importance of automated pipelines over manual exports. This mirrors how real companies centralize scattered data [^18^].</p>
-          </div>
-
-          <a href="https://github.com/sugansvs/youtube-data-warehouse-dashboard" class="project-link" target="_blank">
-            View Code & README <span>→</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Project 2: Airbnb -->
-      <div class="project-card reverse" data-aos="fade-up">
-        <div class="project-visual">
-          <div class="project-image-wrapper">
-            <img src="images/airbnb.png" alt="Airbnb Pricing Dashboard">
-            <div class="project-overlay">
+        <!-- Project 2 -->
+        <div class="project-card">
+          <div class="project-layout reverse">
+            <div class="project-visual">
+              <div class="project-image-wrap">
+                <img src="images/airbnb.png" alt="Airbnb Pricing Dashboard">
+              </div>
               <span class="project-badge">Live App</span>
+              <div class="project-tech-stack">
+                <span class="project-tech">MongoDB</span>
+                <span class="project-tech">Python</span>
+                <span class="project-tech">Pandas</span>
+                <span class="project-tech">EDA</span>
+                <span class="project-tech">Plotly</span>
+                <span class="project-tech">Streamlit</span>
+                <span class="project-tech">Power BI</span>
+
+              </div>
+            </div>
+            <div class="project-info">
+              <span class="project-num">02</span>
+              <h3 class="project-title">Airbnb Pricing Analytics Dashboard</h3>
+
+              <div class="project-section">
+                <div class="project-section-title">❓ Business Problem</div>
+                <p class="project-section-text">Hosts struggle to determine optimal pricing due to multiple influencing factors.</p>
+              </div>
+
+              <div class="project-section">
+                <div class="project-section-title">🔧 Solution</div>
+                <ul class="project-list">
+                  <li>Cleaned and analyzed Airbnb dataset using Pandas</li>
+                  <li>Identified pricing drivers using correlation and segmentation</li>
+                  <li>Built interactive Streamlit app with dynamic filters</li>
+                  <li>Visualized seasonal trends and location-based pricing patterns</li>
+                </ul>
+              </div>
+
+              <div class="project-impact">
+                <div class="project-section-title">📊 Impact</div>
+                <ul class="project-list">
+                  <li>Highlighted key factors influencing listing prices</li>
+                  <li>Enabled users to explore pricing strategies interactively</li>
+                  <li>Transformed static analysis into a usable decision-making tool</li>
+                </ul>
+              </div>
+
+              <div class="project-links">
+                <a href="https://github.com/sugansvs/airbnb-data-analysis" class="project-link primary" target="_blank">View Code →</a>
+                <a href="https://airbnb-data-analysis-sugan.streamlit.app/" class="project-link secondary" target="_blank">Live App ↗</a>
+              </div>
             </div>
           </div>
-          <div class="project-tech-stack">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Streamlit</span>
-            <span class="tech-tag">Pandas</span>
-            <span class="tech-tag">Plotly</span>
-          </div>
         </div>
-        <div class="project-info">
-          <span class="project-num">02</span>
-          <h3>Airbnb Pricing Dashboard</h3>
-          
-          <div class="question-box">
-            <h4>❓ Business Question</h4>
-            <p>What factors drive Airbnb listing prices, and how can hosts optimize their pricing strategy?</p>
-          </div>
-          
-          <div class="what-i-did">
-            <h4>🔧 What I Did</h4>
-            <ul>
-              <li>Cleaned and explored Airbnb dataset with Pandas</li>
-              <li>Analyzed price drivers through correlation and grouping</li>
-              <li>Built interactive Streamlit app with filters by neighborhood & property type</li>
-              <li>Created visualizations showing seasonal trends and competitive positioning</li>
-            </ul>
-          </div>
 
-          <div class="what-i-learned">
-            <h4>🎓 What I Learned</h4>
-            <p>How to turn raw data into an interactive product that non-technical users can explore. This taught me that the best analysis is useless if stakeholders can't access it [^24^].</p>
-          </div>
-
-          <a href="https://airbnb-data-analysis-sugan.streamlit.app/" class="project-link" target="_blank">
-            Launch Live App <span>→</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Project 3: PhonePe -->
-      <div class="project-card" data-aos="fade-up">
-        <div class="project-visual">
-          <div class="project-image-wrapper multi">
-            <img src="images/phonepe-home.png" alt="PhonePe Analytics Home">
-            <img src="images/phonepe-data.png" alt="PhonePe Analytics Data">
-            <img src="images/phonepe-topchart.png" alt="PhonePe Analytics Charts">
-            <div class="project-overlay">
+        <!-- Project 3 -->
+        <div class="project-card">
+          <div class="project-layout">
+            <div class="project-visual">
+              <div class="project-image-wrap multi">
+                <img src="images/phonepe-home.png" alt="PhonePe Analytics Home">
+                <img src="images/phonepe-data.png" alt="PhonePe Data Explorer">
+                <img src="images/phonepe-topchart.png" alt="PhonePe Top Charts">
+              </div>
               <span class="project-badge">Geospatial Analytics</span>
+              <div class="project-tech-stack">
+                <span class="project-tech">Python</span>
+                <span class="project-tech">GeoJSON</span>
+                <span class="project-tech">Plotly</span>
+                <span class="project-tech">Streamlit</span>
+              </div>
+            </div>
+            <div class="project-info">
+              <span class="project-num">03</span>
+              <h3 class="project-title">PhonePe Transaction Analytics</h3>
+
+              <div class="project-section">
+                <div class="project-section-title">❓ Business Problem</div>
+                <p class="project-section-text">Understanding regional digital payment adoption patterns across India.</p>
+              </div>
+
+              <div class="project-section">
+                <div class="project-section-title">🔧 Solution</div>
+                <ul class="project-list">
+                  <li>Processed large-scale transaction datasets using Python</li>
+                  <li>Integrated GeoJSON data for geospatial mapping</li>
+                  <li>Built choropleth maps and time-series visualizations</li>
+                  <li>Analyzed trends across states and time periods</li>
+                </ul>
+              </div>
+
+              <div class="project-impact">
+                <div class="project-section-title">📊 Impact</div>
+                <ul class="project-list">
+                  <li>Identified regional variations in digital payment usage</li>
+                  <li>Revealed growth trends across different states</li>
+                  <li>Simplified complex datasets into intuitive visual insights</li>
+                </ul>
+              </div>
+
+              <div class="project-links">
+                <a href="https://github.com/sugansvs/phonepe-plus" class="project-link primary" target="_blank">View Code →</a>
+                <a href="#" class="project-link secondary">Live Demo ↗</a>
+              </div>
             </div>
           </div>
-          <div class="project-tech-stack">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">GeoJSON</span>
-            <span class="tech-tag">Streamlit</span>
-            <span class="tech-tag">Plotly</span>
-          </div>
         </div>
-        <div class="project-info">
-          <span class="project-num">03</span>
-          <h3>PhonePe Analytics</h3>
-          
-          <div class="question-box">
-            <h4>❓ Business Question</h4>
-            <p>How do digital payment trends vary across Indian states, and what patterns emerge in user behavior?</p>
-          </div>
-          
-          <div class="what-i-did">
-            <h4>🔧 What I Did</h4>
-            <ul>
-              <li>Processed millions of transaction records with Python</li>
-              <li>Merged transaction data with GeoJSON for geospatial mapping</li>
-              <li>Built interactive choropleth maps and time-series charts</li>
-              <li>Analyzed state-wise and temporal trends in user behavior</li>
-            </ul>
-          </div>
 
-          <div class="what-i-learned">
-            <h4>🎓 What I Learned</h4>
-            <p>Handling large datasets, geospatial visualization, and how to present complex data simply. This project taught me that scale doesn't matter if the story isn't clear [^25^].</p>
-          </div>
-
-          <a href="https://github.com/sugansvs/phonepe-plus" class="project-link" target="_blank">
-            View Code & README <span>→</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Project 4: BizCard -->
-      <div class="project-card reverse" data-aos="fade-up">
-        <div class="project-visual">
-          <div class="project-image-wrapper multi">
-            <img src="images/bizcard-home.png" alt="BizCard Home">
-            <img src="images/bizcard-upload.png" alt="BizCard Upload">
-            <img src="images/bizcard-modify.png" alt="BizCard Modify">
-            <img src="images/bizcard-delete.png" alt="BizCard Delete">
-            <div class="project-overlay">
+        <!-- Project 4 -->
+        <div class="project-card">
+          <div class="project-layout reverse">
+            <div class="project-visual">
+              <div class="project-image-wrap multi">
+                <img src="images/bizcard-home.png" alt="BizCard Home Screen">
+                <img src="images/bizcard-upload.png" alt="BizCard Upload">
+                <img src="images/bizcard-modify.png" alt="BizCard Modify">
+              </div>
               <span class="project-badge">OCR Automation</span>
+              <div class="project-tech-stack">
+                <span class="project-tech">Python</span>
+                <span class="project-tech">EasyOCR</span>
+                <span class="project-tech">MySQL</span>
+                <span class="project-tech">Streamlit</span>
+              </div>
+            </div>
+            <div class="project-info">
+              <span class="project-num">04</span>
+              <h3 class="project-title">BizCard OCR System</h3>
+
+              <div class="project-section">
+                <div class="project-section-title">❓ Business Problem</div>
+                <p class="project-section-text">Businesses need to eliminate manual data entry from business cards and maintain a searchable contact database.</p>
+              </div>
+
+              <div class="project-section">
+                <div class="project-section-title">🔧 Solution</div>
+                <ul class="project-list">
+                  <li>Built OCR pipeline using EasyOCR to extract text from images</li>
+                  <li>Used regex to parse structured contact data from raw text</li>
+                  <li>Designed MySQL database with CRUD operations</li>
+                  <li>Created Streamlit interface for upload, edit, and delete</li>
+                </ul>
+              </div>
+
+              <div class="project-impact">
+                <div class="project-section-title">📊 Impact</div>
+                <ul class="project-list">
+                  <li>Eliminated manual business card data entry</li>
+                  <li>Created searchable, structured contact database</li>
+                  <li>Reduced data entry errors through automation</li>
+                </ul>
+              </div>
+
+              <div class="project-links">
+                <a href="https://github.com/sugansvs/bizcardx-data-extraction-project" class="project-link primary" target="_blank">View Code →</a>
+                <a href="#" class="project-link secondary">Live Demo ↗</a>
+              </div>
             </div>
           </div>
-          <div class="project-tech-stack">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">EasyOCR</span>
-            <span class="tech-tag">Streamlit</span>
-            <span class="tech-tag">MySQL</span>
-          </div>
-        </div>
-        <div class="project-info">
-          <span class="project-num">04</span>
-          <h3>BizCard OCR System</h3>
-          
-          <div class="question-box">
-            <h4>❓ Business Question</h4>
-            <p>How can businesses eliminate manual data entry from business cards and maintain a searchable contact database?</p>
-          </div>
-          
-          <div class="what-i-did">
-            <h4>🔧 What I Did</h4>
-            <ul>
-              <li>Built OCR pipeline using EasyOCR to extract text from images</li>
-              <li>Used regex to parse structured contact data from raw text</li>
-              <li>Designed MySQL database with CRUD operations</li>
-              <li>Created Streamlit interface for upload, edit, and delete</li>
-            </ul>
-          </div>
-
-          <div class="what-i-learned">
-            <h4>🎓 What I Learned</h4>
-            <p>End-to-end product thinking: from image input to database storage. This taught me that automation isn't just about speed — it's about eliminating human error [^18^].</p>
-          </div>
-
-          <a href="https://github.com/sugansvs/bizcardx-data-extraction-project" class="project-link" target="_blank">
-            View Code & README <span>→</span>
-          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- LEARNING PATH SECTION -->
-  <section id="learning" class="learning" data-aos="fade-up">
+  <!-- Learning Path Section -->
+  <section id="learning">
     <div class="container">
-      <div class="section-header center">
-        <span class="section-tag">04 — My Learning Journey</span>
-        <h2 class="section-title">How I'm Growing<br>Into This Role</h2>
+      <div class="center">
+        <span class="section-label">04 — Professional Development</span>
+        <h2 class="section-title">Professional Development & Readiness</h2>
+        <p class="section-subtitle">Building expertise through structured learning and applied practice</p>
       </div>
-      
+
       <div class="timeline">
-        <div class="timeline-item" data-aos="fade-right">
-          <div class="timeline-marker">✓</div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
           <div class="timeline-content">
-            <h4>Foundation: Python & SQL</h4>
-            <p>Completed core courses in Pandas, SQL fundamentals, and data cleaning. Built my first EDA projects on real datasets [^18^].</p>
+            <div class="timeline-title">✓ Foundation: Python & SQL</div>
+            <div class="timeline-desc">Built analytical solutions using Pandas, NumPy, and SQL. Applied in EDA, data cleaning, and structured database design.</div>
           </div>
         </div>
-        
-        <div class="timeline-item" data-aos="fade-left">
-          <div class="timeline-marker">✓</div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
           <div class="timeline-content">
-            <h4>Certification: GUVI × HCL</h4>
-            <p>Earned Data Analytics certification validating proficiency in SQL, Python, visualization, and business intelligence methodologies.</p>
+            <div class="timeline-title">✓ Certification: GUVI × HCL</div>
+            <div class="timeline-desc">Completed Data Analytics certification covering SQL, Python, data visualization, and business intelligence concepts.</div>
           </div>
         </div>
-        
-        <div class="timeline-item" data-aos="fade-right">
-          <div class="timeline-marker">✓</div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
           <div class="timeline-content">
-            <h4>4 End-to-End Projects</h4>
-            <p>Built projects covering ETL pipelines, interactive dashboards, geospatial analysis, and OCR automation — each with full documentation [^18^].</p>
+            <div class="timeline-title">✓ 4 End-to-End Projects</div>
+            <div class="timeline-desc">Delivered ETL pipelines, interactive dashboards, geospatial analysis, and automation workflows — all documented and reproducible.</div>
           </div>
         </div>
-        
-        <div class="timeline-item" data-aos="fade-left">
-          <div class="timeline-marker next">→</div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
           <div class="timeline-content">
-            <h4>Next: Advanced SQL & Statistics</h4>
-            <p>Currently studying window functions, CTEs, hypothesis testing, and A/B testing fundamentals to strengthen analytical rigor [^24^].</p>
-          </div>
-        </div>
-        
-        <div class="timeline-item" data-aos="fade-right">
-          <div class="timeline-marker next">→</div>
-          <div class="timeline-content">
-            <h4>Goal: First Data Analyst Role</h4>
-            <p>Seeking an entry-level position where I can contribute immediately while continuing to grow under experienced mentorship.</p>
+            <div class="timeline-title">→ Method: Build-First Approach</div>
+            <div class="timeline-desc">Every skill validated through real datasets, business problem framing, and deployed solutions.</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CERTIFICATION SECTION -->
-  <section class="certification" data-aos="fade-up">
+  <!-- Certification Section -->
+  <section id="certification">
     <div class="container">
-      <div class="section-header center">
-        <span class="section-tag">05 — Credential</span>
-        <h2 class="section-title">Certified & Learning</h2>
+      <div class="center">
+        <span class="section-label">05 — Certification</span>
+        <h2 class="section-title">Certification & Credentials</h2>
       </div>
+
       <div class="cert-card">
-        <div class="cert-content">
-          <div class="cert-badge">🏆</div>
-          <h3>Data Analytics Certification</h3>
-          <p class="cert-issuer">GUVI × HCL</p>
-          <p class="cert-desc">Comprehensive training in SQL, Python, data visualization, and business intelligence. Focused on real-world case studies and industry-standard tools.</p>
+        <div class="cert-icon">🏆</div>
+        <div class="cert-title">Data Analytics Certification</div>
+        <div class="cert-issuer">GUVI × HCL</div>
+        <div class="cert-desc">
+          Completed a structured program covering SQL, Python, data visualization, and business analytics workflow.
         </div>
-        <div class="cert-image">
-          <img src="images/guvi-hcl-certificate.png" alt="GUVI HCL Data Analytics Certificate">
+        <div class="cert-areas">
+          <div class="cert-area">SQL querying & database fundamentals</div>
+          <div class="cert-area">Python for data analysis (Pandas, NumPy)</div>
+          <div class="cert-area">Power BI dashboard development</div>
+          <div class="cert-area">Business analytics workflow</div>
         </div>
+        <a href="images/guvi-hcl-certificate.png" class="btn-primary" target="_blank">View Certificate →</a>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT / CTA SECTION -->
-  <section id="contact" class="contact" data-aos="fade-up">
+  <!-- Contact Section -->
+  <section id="contact">
     <div class="container">
       <div class="contact-content">
-        <h2 class="contact-title">Hire a Learner Who<br>Builds & Delivers</h2>
-        <p class="contact-subtitle">
-          I may be entry-level, but my projects are portfolio-ready. I know how to ask the right questions, 
-          clean messy data, and communicate findings clearly. I'm ready to contribute from day one.
+        <span class="section-label">06 — Contact</span>
+        <h2 class="contact-title">Data Analyst Ready to Deliver Insights from Day One</h2>
+        <p class="contact-text">
+          I bring 4 deployed projects covering ETL pipelines, geospatial analysis,
+          and executive dashboards — built with SQL, Python, and Power BI.
         </p>
-        <div class="contact-links">
-          <a href="mailto:sugan4812@gmail.com" class="btn-primary">sugan4812@gmail.com</a>
-          <a href="https://www.linkedin.com/in/sugan-data-analyst" class="btn-secondary" target="_blank">LinkedIn</a>
-          <a href="https://github.com/sugansvs" class="btn-secondary" target="_blank">GitHub</a>
+        <p class="contact-text">
+          I focus on solving business problems with actionable insights
+          and well-structured data workflows.
+        </p>
+        <div class="contact-availability">Available for immediate start — remote or hybrid</div>
+
+        <div class="contact-links-grid">
+          <a href="mailto:www.sugan4812@gmail.com" class="contact-link-card">
+            <span class="contact-link-icon">📧</span>
+            <span class="contact-link-label">Email</span>
+            <span class="contact-link-value">www.sugan4812@gmail.com</span>
+          </a>
+          <a href="https://www.linkedin.com/in/sugan-data-analyst" class="contact-link-card" target="_blank">
+            <span class="contact-link-icon">🔗</span>
+            <span class="contact-link-label">LinkedIn</span>
+            <span class="contact-link-value">Connect with me</span>
+          </a>
+          <a href="https://github.com/sugansvs" class="contact-link-card" target="_blank">
+            <span class="contact-link-icon">💻</span>
+            <span class="contact-link-label">GitHub</span>
+            <span class="contact-link-value">View my code</span>
+          </a>
         </div>
+
+        <div class="contact-cta">👉 Email me directly — I respond within 24 hours</div>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
+  <!-- Footer -->
+  <footer>
     <div class="container">
-      <p>© 2026 Sugan. Built with curiosity, code, and commitment.</p>
+      <p>© 2026 Sugan. Built with focus on data-driven solutions.</p>
     </div>
   </footer>
 
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
-    AOS.init({
-      duration: 800,
-      once: true,
-      offset: 100
-    });
-
-    // Animated counter
-    const counters = document.querySelectorAll('.stat-num');
-    const speed = 200;
-
-    const animateCounters = () => {
-      counters.forEach(counter => {
-        const target = +counter.getAttribute('data-target');
-        const count = +counter.innerText;
-        const inc = target / speed;
-
-        if (count < target) {
-          counter.innerText = Math.ceil(count + inc);
-          setTimeout(animateCounters, 20);
-        } else {
-          counter.innerText = target;
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateCounters();
-          observer.unobserve(entry.target);
-        }
-      });
-    });
-
-    document.querySelector('.hero-stats') && observer.observe(document.querySelector('.hero-stats'));
-
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
+    });
+
+    // Mobile menu
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      const isOpen = navLinks.style.display === 'flex';
+      navLinks.style.display = isOpen ? 'none' : 'flex';
+      if (!isOpen) {
+        navLinks.style.position = 'absolute';
+        navLinks.style.top = '60px';
+        navLinks.style.left = '0';
+        navLinks.style.right = '0';
+        navLinks.style.background = 'rgba(11, 15, 26, 0.95)';
+        navLinks.style.flexDirection = 'column';
+        navLinks.style.padding = '20px';
+        navLinks.style.backdropFilter = 'blur(20px)';
+        navLinks.style.gap = '16px';
+      }
+    });
+
+    // Scroll reveal
+    const revealElements = document.querySelectorAll('.stat-card, .skill-card, .project-card, .strength-card, .timeline-item');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    revealElements.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      revealObserver.observe(el);
     });
   </script>
 </body>
